@@ -1,0 +1,1 @@
+# pythone_kurs_valuyta
