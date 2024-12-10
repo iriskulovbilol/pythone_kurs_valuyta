@@ -2,10 +2,38 @@ from tkinter import *
 from tkinter.ttk import *
 import requests
 import datetime
+from tkinter import messagebox as mb
 
 root = Tk()
 root.title("курс валюта")
 root.geometry("300x300+100+100")
+
+def proverka_cheeeeeek():
+    valueue = c.get()
+    sum = e1.get()
+    print(valueue)
+    if all(char.isdigit() for char in sum) and sum != "":
+        print("chek1")
+        if valueue != "":
+            print("chek1+")
+            get_api()
+        else:
+            print("chek1-")
+            mb.showerror(
+                "Error",
+                'Выберите какую вальюту вы хотите использовать '
+            )
+    else:
+        print("chek")
+        mb.showerror(
+            "Error",
+            f"{sum} не может быть конвертирован"
+        )
+
+
+
+
+
 
 def get_api_in():
     API = "https://cbu.uz/uz/arkhiv-kursov-valyut/json/"
@@ -90,7 +118,7 @@ def get_api():
 
             e2.config(text=total)
     except:
-        print("error")
+        print("errorr")
 
 x = datetime.datetime.now()
 
@@ -156,7 +184,7 @@ lll =Label(f3)
 lll.pack()
 
 
-b = Button(f3,text="konvert", width=10,command=get_api)
+b = Button(f3,text="konvert", width=10,command=proverka_cheeeeeek)
 b.pack()
 f4 = Frame()
 f4.pack(expand=1,anchor=W)
