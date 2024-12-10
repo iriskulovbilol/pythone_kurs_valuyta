@@ -11,20 +11,15 @@ root.geometry("300x300+100+100")
 def proverka_cheeeeeek():
     valueue = c.get()
     sum = e1.get()
-    print(valueue)
     if all(char.isdigit() for char in sum) and sum != "":
-        print("chek1")
         if valueue != "":
-            print("chek1+")
             get_api()
         else:
-            print("chek1-")
             mb.showerror(
                 "Error",
                 'Выберите какую вальюту вы хотите использовать '
             )
     else:
-        print("chek")
         mb.showerror(
             "Error",
             f"{sum} не может быть конвертирован"
