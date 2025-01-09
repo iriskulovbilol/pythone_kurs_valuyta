@@ -311,6 +311,10 @@ def nu_pryam_giper_plus():
             ent.delete(0, END)
             ent.insert(END, str(aww1))
     except:
+
+
+
+
         print("neznayu chto proizoshlo i ne hochu znat karoche oshibka gte to na sisteme(kvadrat)")
 
 
@@ -592,4 +596,43 @@ root.mainloop()
 
 
 
+
+
+
+
+
+????????????????????????????????????????????????
+
+
+
+import pygame
+import sys
+
+
+fps = 60
+W = 400
+H = 100
+WHITE = (255,255,225)
+ORANGE = (255,150,100)
+clock = pygame.time.Clock()
+sc = pygame.display.set_mode((W,H))
+r = 30
+x = 0 - r
+y = H//2
+while 1:
+    for i in pygame.event.get():
+        if i.type == pygame.QUIT:
+            sys.exit()
+    sc.fill(WHITE)
+
+    pygame.draw.circle(sc,ORANGE,(x,y),r)
+
+    pygame.display.update()
+    if x >= W + r:
+
+        x = 0 - r
+    else:
+
+        x += 2
+    clock.tick(fps)
 
