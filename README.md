@@ -636,3 +636,91 @@ while 1:
         x += 2
     clock.tick(fps)
 
+
+
+
+
+
+
+?????????????????????????????????????????????????????????????????????????????????
+
+
+
+
+
+
+
+
+import pygame as pg
+import sys
+
+WHITE = (255, 255, 255)
+BLUE = (0, 0, 225)
+yapproggres = "uo"
+sc = pg.display.set_mode((400, 300))
+sc.fill(WHITE)
+pg.display.update()
+aa=0
+rabota = False
+x = 100
+y = 100
+timer = 0
+timee = 0
+while 1:
+    for i in pg.event.get():
+        if i.type == pg.QUIT:
+            sys.exit()
+
+    pressed = pg.mouse.get_pressed()
+    pos = pg.mouse.get_pos()
+    if timer == 1:
+        if timee > 40:
+            timer = 0
+            timee = 0
+            pg.display.update()
+            sc.fill(WHITE)
+            pg.display.update()
+            sc.fill(WHITE)
+
+        else:
+            timee +=1
+
+    if pressed[0]:
+
+        if yapproggres == "uo":
+            rabota = True
+            yapproggres = "ou"
+    if rabota == True:
+        x = pos[0]
+        y = pos[1]
+        rabota = False
+    if yapproggres == "ou":
+        if y-aa == 0 or y-aa < 0:
+
+
+            pg.display.update()
+            sc.fill(WHITE)
+            pg.draw.rect(sc, BLUE,(x-10 , 0 ,20,20),1 )
+            pg.display.update()
+            yapproggres = "uo"
+            aa = 0
+            timer = 1
+        else:
+            aa += 2
+
+            pg.draw.circle(sc, BLUE, (x, y - aa), 15)
+            pg.display.update()
+            sc.fill(WHITE)
+    pg.time.delay(20)
+
+
+
+
+
+
+
+
+
+
+
+    ???????????????????
