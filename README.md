@@ -724,3 +724,53 @@ while 1:
 
 
     ???????????????????
+
+
+
+
+
+
+
+
+
+    import pygame
+
+pygame.init()
+
+width,height=400,400
+sc=pygame.display.set_mode((width,height))
+Blue=(0, 0, 225)
+Black=(0,0,0)
+Red=(225,0,50)
+
+Run=True
+a=False
+b=False
+x=200
+y=200
+r=100
+while Run:
+    for i in pygame.event.get():
+        if i.type==pygame.QUIT:
+            Run=False
+
+    sc.fill('Black')
+    key=pygame.key.get_pressed()
+    if key[pygame.K_1]:
+        pygame.draw.circle(sc,"Blue",(x,y),r,draw_bottom_left=True, draw_top_right=True,draw_bottom_right=False,draw_top_left=False, )
+        pygame.draw.circle(sc, "Red", (x, y), r,width=3, draw_bottom_left=True, draw_top_right=True, draw_bottom_right=True,
+                           draw_top_left=True, )
+
+    elif key[pygame.K_2]:
+        pygame.draw.circle(sc,"Red",(x,y),r,draw_bottom_left=False, draw_top_right=False,draw_bottom_right=True,draw_top_left=True)
+
+    elif key[pygame.K_3]:
+        pygame.draw.circle(sc,"Yellow",(x,y),r)
+
+    pygame.display.update()
+    pygame.time.delay(50)
+pygame.quit()
+
+
+
+
