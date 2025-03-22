@@ -774,3 +774,152 @@ pygame.quit()
 
 
 
+
+
+
+??????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+
+
+
+
+
+
+
+
+
+
+import pygame as pg
+from random import randint
+import sys
+
+sc = pg.display.set_mode((520, 520))
+
+surf = pygame.Surface((25, 25))
+surf.fill("green")
+hod = "stop"
+rect = surf.get_rect(center=(200,200))
+
+x1 = 0
+y1 = 0
+
+surf1 = pygame.Surface((25, 25))
+surf1.fill("red")
+
+rect1 = surf1.get_rect(center=(12+(randint(0,20) * 26),12+(randint(0,20) * 26)))
+
+
+
+pg.display.update()
+
+
+x = 182
+y = 182
+
+play = True
+pouse = False
+game_over = False
+total = 0
+
+
+rest_btn_surf = pygame.image.load('images/restart_button1.2.png').convert()
+rest_btn_surf.set_colorkey((0,0,0))
+rest_btn_rect = rest_btn_surf.get_rect(center=(150, 250))
+
+exit_btn_surf = pygame.image.load('images/exit-Photoroom.png').convert()
+exit_btn_surf.set_colorkey((0,0,0))
+exit_btn_rect = exit_btn_surf.get_rect(center=(290, 250))
+
+
+
+while 1:
+    for i in pg.event.get():
+        if i.type == pg.QUIT:
+            sys.exit()
+
+    if play == True:
+
+
+
+        if rect.x < 0 or rect.x > 520 or rect.y < 0 or rect.y > 520:
+            game_over = True
+            play = False
+
+        if hod == "top":
+            y -= 26
+            rect.x = x
+            rect.y = y
+            sc.blit(surf, rect)
+            pygame.display.update()
+        if hod == "bottom":
+            y += 26
+            rect.x = x
+            rect.y = y
+            sc.blit(surf, rect)
+            pygame.display.update()
+        if hod == "left":
+            x -= 26
+            rect.x = x
+            rect.y = y
+            sc.blit(surf, rect)
+            pygame.display.update()
+        if hod == "right":
+            x += 26
+            rect.x = x
+            rect.y = y
+            sc.blit(surf, rect)
+            pygame.display.update()
+        sc.fill((0, 0, 0))
+        sc.blit(surf,rect)
+
+
+        sc.blit(surf1, rect1)
+
+
+
+
+
+        pygame.display.update()
+
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_UP]:
+            hod = "top"
+        elif keys[pygame.K_DOWN]:
+            hod = "bottom"
+        elif keys[pygame.K_LEFT]:
+            hod = "left"
+        elif keys[pygame.K_RIGHT]:
+            hod = "right"
+        if rect.y == rect1.y and rect.x == rect1.x :
+            rect1 = surf1.get_rect(center=(12 + (randint(0, 19) * 26), 12 + (randint(0, 19) * 26)))
+            total+=1
+            print(total)
+    if game_over == True:
+        sc.fill("blue")
+        sc.blit(rest_btn_surf, rest_btn_rect)
+        sc.blit(exit_btn_surf, exit_btn_rect)
+        pygame.display.update()
+
+
+        pressed = pygame.mouse.get_pressed()
+        pos = pygame.mouse.get_pos()
+        if pressed[0]:
+                x1 = pos[0]
+                y1 = pos[1]
+                if  x1 > rest_btn_rect.x and (rest_btn_rect.x + rest_btn_rect.width)  > x1 and  y1 > rest_btn_rect.y and (rest_btn_rect.y + rest_btn_rect.height)  > y1 :
+                    print("111")
+                    rect.x = 182
+                    rect.y = 182
+                    x = 182
+                    y = 182
+                    hod = "stop"
+                    game_over = False
+                    play = True
+        if pressed[0]:
+                x1 = pos[0]
+                y1 = pos[1]
+                if  x1 > exit_btn_rect.x and (exit_btn_rect.x + exit_btn_rect.width)  > x1 and  y1 > exit_btn_rect.y and (exit_btn_rect.y + exit_btn_rect.height)  > y1 :
+                    sys.exit()
+    pg.time.delay(120)
+
+
