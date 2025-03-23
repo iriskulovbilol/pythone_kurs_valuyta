@@ -922,4 +922,105 @@ while 1:
                     sys.exit()
     pg.time.delay(120)
 
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.,
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pygame as pg
+import random
+
+# Initialize pygame
+pg.init()
+
+# Define screen dimensions
+W = 600
+H = 600
+sc = pg.display.set_mode((W, H))
+pg.display.set_caption("Snake Game")
+
+# Game variables
+size = 20
+x_snake = W // 2
+y_snake = H // 2
+x_apple = random.randint(0, (W - size) // size) * size
+y_apple = random.randint(0, (H - size) // size) * size
+snake = [[x_snake, y_snake]]
+direction = "stop"
+total = 1
+game_over = False
+game = True
+
+# Game loop
+clock = pg.time.Clock()
+
+while not game_over:
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            game_over = True
+    if game:
+
+        keys = pg.key.get_pressed()
+        if keys[pg.K_RIGHT] :
+            direction = "RIGHT"
+        elif keys[pg.K_LEFT] :
+            direction = "LEFT"
+        elif keys[pg.K_UP] :
+            direction = "UP"
+        elif keys[pg.K_DOWN] :
+            direction = "DOWN"
+
+
+        if direction == "RIGHT":
+            x_snake += size
+        elif direction == "LEFT":
+            x_snake -= size
+        elif direction == "UP":
+            y_snake -= size
+        elif direction == "DOWN":
+            y_snake += size
+
+
+        snake.insert(0, [x_snake, y_snake])
+
+        if x_snake == x_apple and y_snake == y_apple or keys[pg.K_1]:
+            total += 11
+            x_apple = random.randint(0, (W - size) // size) * size
+            y_apple = random.randint(0, (H - size) // size) * size
+        else:
+            snake.pop()
+
+
+        if x_snake < 0 or x_snake >= W or y_snake < 0 or y_snake >= H :
+            game_over = True
+
+
+        sc.fill('black')
+        print("1")
+        for segment in snake:
+            print(segment)
+            pg.draw.rect(sc, 'green', (segment[0], segment[1], size, size))
+
+
+        pg.draw.rect(sc, 'red', (x_apple, y_apple, size, size))
+
+
+        pg.display.flip()
+    if game == False:
+        sc.fill("black")
+        
+
+    clock.tick(10)
+
+# Quit pygame
+pg.quit()
 
