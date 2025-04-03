@@ -1024,3 +1024,176 @@ while not game_over:
 # Quit pygame
 pg.quit()
 
+
+
+
+///////////////////////////////
+sharik
+
+
+
+import pygame
+from random import randint
+import sys
+pygame.init()
+
+W = 330
+H = 470
+
+x = 165
+
+fonex = 0
+sc = pygame.display.set_mode((W, H))
+
+shar = pygame.image.load('images/shar1.png').convert()
+shar.set_colorkey((0, 0, 0))
+
+fone = pygame.image.load('images/fon9.jpg').convert()
+fone1 = pygame.image.load('images/fon9.jpg').convert()
+
+fonerect = fone.get_rect(center=(165, fonex))
+fonerect1 = fone1.get_rect(center=(165, fonex + 471))
+
+sharr = shar.get_rect(center=(x, 400))
+
+shipi = pygame.image.load('images/shipi.png')
+rect  =shipi.get_rect()
+
+shipi1 = pygame.image.load('images/shipi.png')
+rect1  =shipi1.get_rect()
+
+
+shx1 = randint(-10,290)
+shy1 = -250
+
+
+game = True
+game_over = False
+pause = False
+new = 3
+
+time1 = 1
+time2 = 0
+shx = randint(-10,290)
+shy = 0
+speed = 3
+while True:
+    for i in pygame.event.get():
+        if i.type == pygame.QUIT:
+            sys.exit()
+    if game and pause == False:
+        pygame.display.set_caption(str(time1))
+        sharr = shar.get_rect(center=(x, 400))
+        keys = pygame.key.get_pressed()
+        fonerect = fone.get_rect(center=(165, fonex - 235))
+        fonerect1 = fone1.get_rect(center=(165, fonex + 235))
+        sc.blit(fone, fonerect)
+        sc.blit(fone1, fonerect1)
+        time2+=1
+        if time2 == 30:
+            time2 = 0
+            time1+=1
+
+        if fonex > 470:
+            fonex = 0
+        if time1 % 30 == 0:
+            time1+=1
+            new+= 1
+            print("ul")
+        fonex += speed
+        shy+=new
+        rect.x = shx
+        rect.y = shy
+
+        shy1 += new
+        rect1.x = shx1
+        rect1.y = shy1
+        if shy > 471:
+            shy = 0
+            shx = randint(-10, 290)
+        if shy1 > 471:
+            shy1 = 0
+            shx1 = randint(-10, 290)
+
+        sc.blit(shipi,rect)
+        sc.blit(shipi1, rect1)
+
+
+
+        if keys[pygame.K_LEFT]:
+            x -= 5
+        if keys[pygame.K_RIGHT]:
+            x +=5
+
+
+        if rect.colliderect(sharr) or rect1.colliderect(sharr):
+            game = False
+        if game :
+            if keys[pygame.K_ESCAPE]:
+                pause  = True
+
+
+
+        sc.blit(shar, sharr)
+    keys = pygame.key.get_pressed()
+
+    if game == False:
+        sc.fill('black')
+        time1 = 1
+        font = pygame.font.SysFont('Arial', 36)
+        text = font.render(f"Game over", True, "red")
+        font1 = pygame.font.SysFont('Arial', 36)
+        text1 = font1.render(f"Your score is {time1}", True, "WHITE")
+        try:
+            with open("records", "r") as file:
+                record = int(file.read())
+            if time1 >= int(record):
+
+                with open("records", "w") as file:
+                    file.write(str(time1))
+        except:
+            print("file errror")
+
+        font11 = pygame.font.SysFont('Arial', 36)
+        text11 = font11.render(f"The best is {record}", True, "WHITE")
+
+        font111 = pygame.font.SysFont('Arial', 36)
+        text111 = font111.render(f"Press G to restart", True, "green")
+
+        font112 = pygame.font.SysFont('Arial', 36)
+        text112 = font112.render(f"Press Q to exit", True, "green")
+        if keys[pygame.K_g]:
+            shx = randint(-10, 290)
+            shy = 0
+            shx1 = randint(-10, 290)
+            shy1 = -230
+            game = True
+        if keys[pygame.K_q]:
+            sys.exit()
+        sc.blit(text, (80, 50))
+        sc.blit(text1, (60, 80))
+        sc.blit(text11, (60, 115))
+        sc.blit(text111, (40, 150))
+        sc.blit(text112, (60, 180))
+
+
+    if pause:
+        sc.fill('black')
+        font = pygame.font.SysFont('Arial', 36)
+        text = font.render(f"Game was poused", True, "WHITE")
+        font1 = pygame.font.SysFont('Arial', 36)
+        text1 = font1.render(f"Press space to countuning", True, "WHITE")
+        sc.blit(text, (50, 50))
+        sc.blit(text1, (0, 80))
+    if pause:
+        if keys[pygame.K_SPACE]:
+
+            pause = False
+    pygame.display.update()
+    pygame.time.delay(10)
+
+
+/////////////
+
+
+
